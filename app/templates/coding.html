@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    {% if award %}
+        {% include '_award.html' %}
+    {% endif %}
+    {% if form %}
+        {% include '_code.html' %}
+    {% endif %}
+{% endblock %}
