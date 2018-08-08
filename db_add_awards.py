@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     # Create the database
 
-    engine = create_engine('postgres://eaillotiydvbpd:56985558ef52045d8a3ab27b743eea27fda35d3337e3bc1909775177c6fae735@ec2-54-221-210-97.compute-1.amazonaws.com:5432/d95184iqlcre2g')
+    engine = create_engine('postgres://mkfaygifhvukdz:4753f32b2ac2e2b7cf5ee67e4d871291b00eb06b03cd6027036ec0ae04902886@ec2-107-21-98-165.compute-1.amazonaws.com:5432/d1hvrpqqju1diu')
 
     # Create a configured "Session" class
     Session = sessionmaker(bind=engine)
@@ -53,15 +53,7 @@ if __name__ == "__main__":
                     'program': row['program'],
                     'title': row['title'],
                     'abstract': row['abstract'],
-                    'award_number': row['award_number'],
-                    # 'pervasive_data': None,
-                    # 'data_science': None,
-                    # 'big_data': None,
-                    # 'case_study': None,
-                    # 'data_synonyms': None,
-                    # 'not_relevant': None,
-                    # 'timestamp': None,
-                    # 'user_id': None,
+                    'award_number': row['award_number']
                 })
                 print(record)
                 session.add(record)
