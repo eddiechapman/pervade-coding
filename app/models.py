@@ -8,6 +8,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), unique=True)
     email = db.Column(db.String(120), unique=True)
     password_hash = db.Column(db.String(128))
+    awards = db.relationship('Award', backref='user', lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -42,7 +43,7 @@ class Award(db.Model):
     data_synonyms = db.Column(db.Text, nullable=True)
     not_relevant = db.Column(db.Boolean, nullable=True)
     timestamp = db.Column(db.DateTime, nullable=True)
-    user = db.Column(db.String(64), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
     def __repr__(self):
         return '<Award id:{0} | #:{1} | code:{2} | title:{3} | bd:{4} | ts:{5} | uid:{6}>'.format(
