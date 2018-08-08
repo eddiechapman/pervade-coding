@@ -49,7 +49,7 @@ def code_award(award_id):
         award.data_synonyms = form.data_synonyms.data
         award.not_relevant = form.not_relevant.data
         award.timestamp = datetime.utcnow()
-        award.coder = current_user
+        award.user = current_user
         db.session.commit()
         flash('Coding data submitted for ' + award.title)
         return redirect(url_for('get_award'))
