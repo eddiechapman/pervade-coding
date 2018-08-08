@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64),  unique=True)
+    username = db.Column(db.String(64), unique=True)
     email = db.Column(db.String(120), unique=True)
     password_hash = db.Column(db.String(128))
 
@@ -42,7 +42,7 @@ class Award(db.Model):
     data_synonyms = db.Column(db.Text, nullable=True)
     not_relevant = db.Column(db.Boolean, nullable=True)
     timestamp = db.Column(db.DateTime, nullable=True)
-    user = db.Column(db.String(128), nullable=True)
+    user = db.Column(db.String(64), nullable=True)
 
     def __repr__(self):
         return '<Award id:{0} | #:{1} | code:{2} | title:{3} | bd:{4} | ts:{5} | uid:{6}>'.format(
