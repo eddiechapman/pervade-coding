@@ -45,6 +45,7 @@ class CodingForm(FlaskForm):
     submit = SubmitField('Submit')
 
     def validate(self):
+        """Ensure that submitted form data is not blank"""
         if not self.pervasive_data.data \
             and not self.data_science.data \
             and not self.big_data.data \

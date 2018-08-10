@@ -8,6 +8,7 @@ from app.models import User, Award
 
 @app.before_request
 def session_management():
+    """Initialize Flask session storage to remember skipped awards."""
     session.permanent = True
     if 'skipped_awards' not in session:
         session['skipped_awards'] = []
@@ -22,9 +23,13 @@ def index():
 @app.route('/get_award')
 @login_required
 def get_award():
+    """Retrieve a single award that has not been coded or skipped."""
     award = Award.query.filter(
+        # No timestamp (added when coding form is submitted)
         Award.timestamp == None,
+        # No skipped awards matching current award ID
         ~Award.id.in_(session['skipped_awards'])
+    # 404 error page is returned if no results
     ).first_or_404()
     return redirect(url_for('code_award', award_id=award.id))
 
@@ -32,6 +37,7 @@ def get_award():
 @app.route('/skip_award/<int:award_id>')
 @login_required
 def skip_award(award_id):
+    """Add current award ID to list of skipped awards."""
     session['skipped_awards'].append(award_id)
     return redirect(url_for('get_award'))
 
@@ -39,6 +45,7 @@ def skip_award(award_id):
 @app.route('/code_award/<int:award_id>', methods=['GET', 'POST'])
 @login_required
 def code_award(award_id):
+    """Display award data and coding form. Process form submission."""
     award = Award.query.get(award_id)
     form = CodingForm()
     if form.validate_on_submit():
@@ -58,6 +65,7 @@ def code_award(award_id):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """Authenticate login credentials, retrieve user info from database."""
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
@@ -73,6 +81,7 @@ def login():
 
 @app.route('/logout')
 def logout():
+    """Log user out and clear session of skipped awards."""
     session.clear()
     logout_user()
     return redirect(url_for('index'))
@@ -80,6 +89,7 @@ def logout():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """Add user to the database."""
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RegistrationForm()
