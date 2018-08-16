@@ -30,7 +30,7 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
-        elif email.data not in app.config['PERVADE_EMAIL']:
+        elif email.data not in app.config['PERVADE_MEMBER']:
             raise ValidationError('You are not authorized to register. Try a different email address.')
 
 
