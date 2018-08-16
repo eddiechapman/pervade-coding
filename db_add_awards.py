@@ -10,10 +10,9 @@ import os
 import csv
 
 os.chdir('/home/eddie/pervade-coding-db-tools')
-FILENAME = '180806-db-update-awards.csv'
+FILENAME = '180816-db-update-awards.csv'
 FIELDNAMES = (
-    'pi_last_name',
-    'pi_first_name',
+    'pi_name',
     'contact',
     'pi_email',
     'organization',

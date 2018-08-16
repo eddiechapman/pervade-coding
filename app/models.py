@@ -27,8 +27,7 @@ def load_user(id):
 
 class Award(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    pi_last_name = db.Column(db.String(64))
-    pi_first_name = db.Column(db.String(64))
+    pi_name = db.Column(db.String(128))
     contact = db.Column(db.String(128))
     pi_email = db.Column(db.String(128))
     organization = db.Column(db.String(128))
