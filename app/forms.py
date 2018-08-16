@@ -3,6 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, TextAreaField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User
+from app import app
 
 
 class LoginForm(FlaskForm):
@@ -29,6 +30,9 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
+        elif email.data not in app.config['PERVADE_EMAIL']:
+            raise ValidationError('You are not authorized to register. Try a different email address.')
+
 
 
 class CodingForm(FlaskForm):
