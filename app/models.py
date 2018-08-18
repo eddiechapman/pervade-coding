@@ -51,7 +51,7 @@ class Award(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
     def __repr__(self):
-        return '<Award id:{0} | #:{1} | code:{2} | title:{3} | bd:{4} | ts:{5} | uid:{6}>'.format(
-            self.id, self.award_number, self.program, self.title, self.big_data, self.timestamp, self.user
+        return '<Award id:{0}'.format(
+            self.id
         )
 
