@@ -49,12 +49,18 @@ def code_award(award_id):
     award = Award.query.get(award_id)
     form = CodingForm()
     if form.validate_on_submit():
-        award.pervasive_data = form.pervasive_data.data
-        award.data_science = form.data_science.data
-        award.big_data = form.big_data.data
-        award.case_study = form.case_study.data
-        award.data_synonyms = form.data_synonyms.data
-        award.not_relevant = form.not_relevant.data
+        award.title_pervasive_data = form.title_pervasive_data.data
+        award.title_data_science = form.title_data_science.data
+        award.title_big_data = form.title_big_data.data
+        award.title_case_study = form.title_case_study.data
+        award.title_data_synonyms = form.title_data_synonyms.data
+        award.title_not_relevant = form.title_not_relevant.data
+        award.abstract_pervasive_data = form.abstract_pervasive_data.data
+        award.abstract_data_science = form.abstract_data_science.data
+        award.abstract_big_data = form.abstract_big_data.data
+        award.abstract_case_study = form.abstract_case_study.data
+        award.abstract_data_synonyms = form.abstract_data_synonyms.data
+        award.abstract_not_relevant = form.abstract_not_relevant.data
         award.timestamp = datetime.utcnow()
         award.user = current_user
         db.session.commit()

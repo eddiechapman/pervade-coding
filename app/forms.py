@@ -31,31 +31,60 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different email address.')
         elif email.data not in app.config['PERVADE_MEMBER']:
-            raise ValidationError('You are not authorized to register. Try a different email address.')
-
+            raise ValidationError(
+                'You are not authorized to register. Try a different email address.'
+            )
 
 
 class CodingForm(FlaskForm):
-    pervasive_data = BooleanField('Pervasive data')
-    data_science = BooleanField('Data science')
-    big_data = BooleanField('Big data')
-    case_study = BooleanField('Flag for PRIM&R case study')
-    data_synonyms = TextAreaField(
-        'Data synonyms',
+    title_pervasive_data = BooleanField('Pervasive data (title)')
+    title_data_science = BooleanField('Data science (title)')
+    title_big_data = BooleanField('Big data (title)')
+    title_case_study = BooleanField('Flag for PRIM&R case study (title)')
+    title_data_synonyms = TextAreaField(
+        'Data synonyms (title)',
         description='Please seperate values with a semicolon',
         validators=[Length(min=0, max=500)]
     )
-    not_relevant = BooleanField('This award is not relevant to PERVADE')
+    title_not_relevant = BooleanField(
+        'This award title is not relevant to PERVADE'
+    )
+    abstract_pervasive_data = BooleanField('Pervasive data (abstract)')
+    abstract_data_science = BooleanField('Data science (abstract)')
+    abstract_big_data = BooleanField('Big data (abstract)')
+    abstract_case_study = BooleanField('Flag for PRIM&R case study (abstract)')
+    abstract_data_synonyms = TextAreaField(
+        'Data synonyms (abstract)',
+        description='Please seperate values with a semicolon',
+        validators=[Length(min=0, max=500)]
+    )
+    abstract_not_relevant = BooleanField(
+        'This award abstract is not relevant to PERVADE'
+    )
     submit = SubmitField('Submit')
 
     def validate(self):
         """Ensure that submitted form data is not blank"""
         if not self.pervasive_data.data \
-            and not self.data_science.data \
-            and not self.big_data.data \
-            and not self.case_study.data \
-            and not self.data_synonyms.data \
-            and not self.not_relevant.data:
-            flash('Please select a coding category or NOT RELEVANT to proceed.')
+            and not self.title_data_science.data \
+            and not self.title_big_data.data \
+            and not self.title_case_study.data \
+            and not self.title_data_synonyms.data \
+            and not self.title_not_relevant.data:
+            flash(
+                'Please select an award title coding category or NOT RELEVANT to proceed.'
+            )
+            return False
+        elif not self.pervasive_data.data \
+            and not self.abstract_data_science.data \
+            and not self.abstract_big_data.data \
+            and not self.abstract_case_study.data \
+            and not self.abstract_data_synonyms.data \
+            and not self.abstract_not_relevant.data:
+            flash(
+                'Please select an award abstract coding category or NOT RELEVANT to proceed.'
+            )
             return False
         return True
+
+
