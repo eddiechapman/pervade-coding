@@ -1,4 +1,5 @@
 app.db
+db-tools/*.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
