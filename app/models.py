@@ -27,12 +27,12 @@ def load_user(id):
 
 class Award(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    pi_name = db.Column(db.String(128))
-    contact = db.Column(db.String(128))
+    pi_name = db.Column(db.String(300))
+    contact = db.Column(db.String(300))
     pi_email = db.Column(db.String(128))
-    organization = db.Column(db.String(128))
-    program = db.Column(db.String(128))
-    title = db.Column(db.String(300))
+    organization = db.Column(db.String(500))
+    program = db.Column(db.String(300))
+    title = db.Column(db.String(500))
     abstract = db.Column(db.Text)
     award_number = db.Column(db.Integer)
     title_pervasive_data = db.Column(db.Boolean, nullable=True)
