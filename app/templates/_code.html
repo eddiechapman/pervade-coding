@@ -1,7 +1,60 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            {{ wtf.quick_form(form) }}
+    <form action="" method="post" role="form">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form.csrf }}
+                    <h4>Title coding:</h4>
+                    <label for="title_pervasive_data">Pervasive data</label>
+                    <input type="checkbox" class="form-control" id="title_pervasive_data" name="title_pervasive_data" placeholder="">
+                    <br>
+                    <label for="title_big_data">Big data</label>
+                    <input type="checkbox" class="form-control" id="title_big_data" name="title_big_data" placeholder="">
+                    <br>
+                    <label for="title_data_science">Data science</label>
+                    <input type="checkbox" class="form-control" id="title_data_science" name="title_data_science" placeholder="">
+                    <br>
+                    <label for="title_data_synonyms">Data synonyms</label>
+                    <input type="text" class="form-control" id="title_data_synonyms" name="title_data_synonyms" placeholder="Please seperate values with a semicolon">
+                    <br>
+                    <label for="title_case_study">Flag title for PRIM&R case study</label>
+                    <input type="checkbox" class="form-control" id="title_case_study" name="title_case_study" placeholder="">
+                    <br>
+                    <label for="title_not_relevant">Title is not relevant to PERVADE</label>
+                    <input type="checkbox" class="form-control" id="title_not_relevant" name="title_not_relevant" placeholder="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h4>Abstract coding:</h4>
+                    <label for="abstract_pervasive_data">Pervasive data</label>
+                    <input type="checkbox" class="form-control" id="abstract_pervasive_data" name="abstract_pervasive_data" placeholder="">
+                    <br>
+                    <label for="abstract_big_data">Big data</label>
+                    <input type="checkbox" class="form-control" id="abstract_big_data" name="abstract_big_data" placeholder="">
+                    <br>
+                    <label for="abstract_data_science">Data science</label>
+                    <input type="checkbox" class="form-control" id="abstract_data_science" name="abstract_data_science" placeholder="">
+                    <br>
+                    <label for="abstract_data_synonyms">Data synonyms</label>
+                    <input type="text" class="form-control" id="abstract_data_synonyms" name="abstract_data_synonyms" placeholder="Please seperate values with a semicolon">
+                    <br>
+                    <label for="abstract_case_study">Flag abstract for PRIM&R case study</label>
+                    <input type="checkbox" class="form-control" id="abstract_case_study" name="abstract_case_study" placeholder="">
+                    <br>
+                    <label for="abstract_not_relevant">Abstract is not relevant to PERVADE</label>
+                    <input type="checkbox" class="form-control" id="abstract_not_relevant" name="abstract_not_relevant" placeholder="">
+                </div>
+            </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <center>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
