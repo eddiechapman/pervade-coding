@@ -65,7 +65,7 @@ class CodingForm(FlaskForm):
 
     def validate(self):
         """Ensure that submitted form data is not blank"""
-        if not self.pervasive_data.data \
+        if not self.title_pervasive_data.data \
             and not self.title_data_science.data \
             and not self.title_big_data.data \
             and not self.title_case_study.data \
@@ -75,7 +75,7 @@ class CodingForm(FlaskForm):
                 'Please select an award title coding category or NOT RELEVANT to proceed.'
             )
             return False
-        elif not self.pervasive_data.data \
+        elif not self.abstract_pervasive_data.data \
             and not self.abstract_data_science.data \
             and not self.abstract_big_data.data \
             and not self.abstract_case_study.data \
