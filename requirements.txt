@@ -1,13 +1,12 @@
 Flask==0.12.2
-Werkzeug==0.14.1
 SQLAlchemy==1.2.1
 alembic==1.0.0
+Werkzeug==0.14.1
 flask_bootstrap==3.3.7.1
 flask_login==0.4.1
+flask_mail==0.9.1
 flask_migrate==2.2.1
 flask_sqlalchemy==2.3.2
 flask_wtf==0.14.2
+PyJWT==1.6.4
 WTForms==2.2.1
-psycopg2==2.7.5
-gunicorn==19.9.0
-
