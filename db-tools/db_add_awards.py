@@ -9,8 +9,8 @@ from app.models import Award, User
 import os
 import csv
 
-os.chdir('/home/eddie/pervade-coding-db-tools')
-FILENAME = '180816-db-update-awards.csv'
+os.chdir('/home/eddie/pervade-coding/db-tools')
+FILENAME = 'NSF_Funded_Pis_CISE-out.csv'
 FIELDNAMES = (
     'pi_name',
     'contact',
@@ -19,7 +19,8 @@ FIELDNAMES = (
     'program',
     'title',
     'abstract',
-    'award_number'
+    'award_number',
+    'id'
 )
 
 
@@ -41,10 +42,9 @@ if __name__ == "__main__":
     try:
         with open(FILENAME, 'r', encoding='UTF-8') as csvfile:
             reader = csv.DictReader(csvfile, FIELDNAMES)
-            for row in reader:
+            for i, row in enumerate(reader):
                 record = Award(**{
-                    'pi_last_name': row['pi_last_name'],
-                    'pi_first_name': row['pi_first_name'],
+                    'pi_name': row['pi_name'],
                     'contact': row['contact'],
                     'pi_email': row['pi_email'],
                     'organization': row['organization'],
@@ -53,8 +53,10 @@ if __name__ == "__main__":
                     'abstract': row['abstract'],
                     'award_number': row['award_number']
                 })
-                print(record)
                 session.add(record)
+                if i % 1000 == 0:
+                    session.flush()
+                    print('*flush*')
             session.commit() #Attempt to commit all the records
             print('we did it')
     except Exception as e:
