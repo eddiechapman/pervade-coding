@@ -11,6 +11,7 @@ def validate_abstract(row):
     row[6] = row[6].replace('<br/>', '\n')
     row[6] = row[6].replace('&#8203', '\n')
     row[6] = row[6].lstrip()
+    row[6] = row[6].rstrip()
     return row
 
 
