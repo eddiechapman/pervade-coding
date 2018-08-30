@@ -4,7 +4,7 @@ from werkzeug.urls import url_parse
 from app import app, db
 from datetime import datetime
 from app.forms import LoginForm, RegistrationForm, CodingForm, ResetPasswordRequestForm
-from app.email import send_password_request_email
+from app.email import send_password_reset_email
 from app.models import User, Award
 
 @app.before_request
