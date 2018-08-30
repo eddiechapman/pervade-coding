@@ -3,17 +3,14 @@ import csv
 
 CONFIG_PATH = os.path.split(__file__)[0]
 INFILE = os.path.join(CONFIG_PATH, 'NSF_Funded_Pis_CISE.csv')
-OUTFILE = os.path.join(CONFIG_PATH, 'NSF_Funded_Pis_CISE-out1.csv')
+OUTFILE = os.path.join(CONFIG_PATH, 'NSF_Funded_Pis_CISE-deduped.csv')
 ERROR_FILE = os.path.join(CONFIG_PATH, 'NSF_Funded_Pis_CISE-duplicates.csv')
 
 
 def validate_abstract(row):
-    linebreaks_html = row[6].count('<br/>')
-    linebreaks_escaped = row[6].count('&#8203')
-    if linebreaks_html or linebreaks_escaped > 7:
-        row[6] = row[6].replace('<br/>', '\n')
-        row[6] = row[6].replace('&#8203', '\n')
-        row[6] = row[6].lstrip()
+    row[6] = row[6].replace('<br/>', '\n')
+    row[6] = row[6].replace('&#8203', '\n')
+    row[6] = row[6].lstrip()
     return row
 
 
