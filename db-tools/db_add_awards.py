@@ -10,7 +10,7 @@ import os
 import csv
 
 os.chdir('/home/eddie/pervade-coding/db-tools')
-FILENAME = 'NSF_Funded_Pis_CISE-out.csv'
+FILENAME = 'NSF_Funded_Pis_CISE-deduped.csv'
 FIELDNAMES = (
     'pi_name',
     'contact',
