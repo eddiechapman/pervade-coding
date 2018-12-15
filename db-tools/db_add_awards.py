@@ -1,13 +1,13 @@
+import csv
+import os
 from time import time
-from datetime import datetime
-from sqlalchemy import Column, Text, Integer, String
+
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app import app
-from app.models import Award, User
-import os
-import csv
+
+from app.models import Award
+
 
 os.chdir('/home/eddie/pervade-coding/db-tools')
 FILENAME = 'NSF_Funded_Pis_CISE-deduped.csv'
@@ -21,8 +21,7 @@ FIELDNAMES = (
     'abstract',
     'award_number',
     'id'
-)
-
+    )
 
 
 if __name__ == "__main__":
@@ -52,16 +51,16 @@ if __name__ == "__main__":
                     'title': row['title'],
                     'abstract': row['abstract'],
                     'award_number': row['award_number']
-                })
+                    })
                 session.add(record)
                 if i % 1000 == 0:
                     session.flush()
                     print('*flush*')
-            session.commit() #Attempt to commit all the records
+            session.commit()
             print('we did it')
     except Exception as e:
-        session.rollback() #Rollback the changes on error
+        session.rollback()
         print(e)
     finally:
-        session.close() #Close the connection
+        session.close()
     print("Time elapsed: " + str(time() - t) + " s.")
