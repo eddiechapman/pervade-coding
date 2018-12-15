@@ -6,11 +6,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User(UserMixin, db.Model):
-    __tablename__ = 'user'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), unique=True)
-    email = db.Column(db.String(120), unique=True)
-    password_hash = db.Column(db.String(128))
+    __tablename__   = 'user'
+    id              = db.Column(db.Integer, primary_key=True)
+    name            = db.Column(db.String(64), unique=True)
+    email           = db.Column(db.String(120), unique=True)
+    password_hash   = db.Column(db.String(128))
     codes = db.relationship('Code', back_populates='users')
 
     def __repr__(self):
@@ -53,16 +53,16 @@ project_awards = db.Table(
 
 
 class Award(db.Model):
-    __tablename__ = 'award'
-    id = db.Column(db.Integer, primary_key=True)
-    award_id = db.Column(db.Integer, unique=True)
-    pi_name = db.Column(db.String(300))
-    contact = db.Column(db.String(1000))
-    pi_email = db.Column(db.String(128))
-    organization = db.Column(db.String(1000))
-    program = db.Column(db.String(1000))
-    title = db.Column(db.String(1000))
-    abstract = db.Column(db.Text)
+    __tablename__   = 'award'
+    id              = db.Column(db.Integer, primary_key=True)
+    award_id        = db.Column(db.Integer, unique=True)
+    pi_name         = db.Column(db.String(300))
+    contact         = db.Column(db.String(1000))
+    pi_email        = db.Column(db.String(128))
+    organization    = db.Column(db.String(1000))
+    program         = db.Column(db.String(1000))
+    title           = db.Column(db.String(1000))
+    abstract        = db.Column(db.Text)
     codes = db.relationship('Code', back_populates='code.award')
     projects = db.relationship('Project', secondary=project_awards, back_populates='awards')
 
@@ -71,22 +71,22 @@ class Award(db.Model):
 
 
 class Project(db.Model):
-    __tablename__ = 'project'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(200))
-    description = db.Column(db.Text)
+    __tablename__   = 'project'
+    id              = db.Column(db.Integer, primary_key=True)
+    name            = db.Column(db.String(200))
+    description     = db.Column(db.Text)
     codes = db.relationship('Code', back_populates='code.project')
     awards = db.relationship('Award', secondary=project_awards, back_populates='projects')
 
 
 class Code(db.Model):
-    __tablename__ = 'code'
-    id = db.Column(db.Integer, primary_key=True)
-    time = db.Column(db.DateTime)
-    award_id = db.Column(db.Integer, db.ForeignKey('award.id'))
-    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    code_type = db.Column(db.String(45))
+    __tablename__   = 'code'
+    id              = db.Column(db.Integer, primary_key=True)
+    time            = db.Column(db.DateTime)
+    award_id        = db.Column(db.Integer, db.ForeignKey('award.id'))
+    project_id      = db.Column(db.Integer, db.ForeignKey('project.id'))
+    user_id         = db.Column(db.Integer, db.ForeignKey('user.id'))
+    code_type       = db.Column(db.String(45))
     award = db.relationship('Award', back_populates='codes')
     project = db.relationship('Project', back_populates='codes')
     user = db.relationship('User', back_populates='codes')
@@ -108,26 +108,26 @@ class Code(db.Model):
 
 
 class Title(Code):
-    __tablename__ = 'title'
-    id = db.Column(db.Integer, db.ForeignKey('code.id'), primary_key=True)
-    pervasive_data = db.Column(db.Boolean)
-    data_sci = db.Column(db.Boolean)
-    big_data = db.Column(db.Boolean)
-    case_study = db.Column(db.Boolean)
-    data_synonyms = db.Column(db.Text)
+    __tablename__   = 'title'
+    id              = db.Column(db.Integer, db.ForeignKey('code.id'), primary_key=True)
+    pervasive_data  = db.Column(db.Boolean)
+    data_sci        = db.Column(db.Boolean)
+    big_data        = db.Column(db.Boolean)
+    case_study      = db.Column(db.Boolean)
+    data_synonyms   = db.Column(db.Text)
 
     __mapper_args__ = {
             'polymorphic_identity': 'title'
     }
 
 class Abstract(Code):
-    __tablename__ = 'abstract'
-    id = db.Column(db.Integer, db.ForeignKey('code.id'), primary_key=True)
-    pervasive_data = db.Column(db.Boolean)
-    data_sci = db.Column(db.Boolean)
-    big_data = db.Column(db.Boolean)
-    case_study = db.Column(db.Boolean)
-    data_synonyms = db.Column(db.Text)
+    __tablename__   = 'abstract'
+    id              = db.Column(db.Integer, db.ForeignKey('code.id'), primary_key=True)
+    pervasive_data  = db.Column(db.Boolean)
+    data_sci        = db.Column(db.Boolean)
+    big_data        = db.Column(db.Boolean)
+    case_study      = db.Column(db.Boolean)
+    data_synonyms   = db.Column(db.Text)
 
     __mapper_args__ = {
             'polymorphic_identity': 'abstract'
