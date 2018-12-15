@@ -7,6 +7,7 @@ from app.forms import LoginForm, RegistrationForm, CodingForm, ResetPasswordRequ
 from app.email import send_password_reset_email
 from app.models import User, Award
 
+
 @app.before_request
 def session_management():
     """Initialize Flask session storage to remember skipped awards."""
@@ -20,7 +21,7 @@ def session_management():
 def index():
     return render_template('index.html')
 
-
+# TODO: Move coding stuff to separate directory
 @app.route('/get_award')
 @login_required
 def get_award():
@@ -35,6 +36,7 @@ def get_award():
     return redirect(url_for('code_award', award_id=award.id))
 
 
+# TODO: Move coding stuff to separate directory
 @app.route('/skip_award/<int:award_id>')
 @login_required
 def skip_award(award_id):
@@ -43,6 +45,7 @@ def skip_award(award_id):
     return redirect(url_for('get_award'))
 
 
+# TODO: Move coding stuff to separate directory
 @app.route('/code_award/<int:award_id>', methods=['GET', 'POST'])
 @login_required
 def code_award(award_id):
@@ -70,6 +73,7 @@ def code_award(award_id):
     return render_template('coding.html', award=award, form=form)
 
 
+# TODO: Move user stuff to a separate directory
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """Authenticate login credentials, retrieve user info from database."""
@@ -86,6 +90,7 @@ def login():
     return render_template('login.html', title='Sign In', form=form)
 
 
+# TODO: Move user stuff to a separate directory
 @app.route('/logout')
 def logout():
     """Log user out and clear session of skipped awards."""
@@ -94,6 +99,7 @@ def logout():
     return redirect(url_for('index'))
 
 
+# TODO: Move user stuff to a separate directory
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     """Add user to the database."""
@@ -110,6 +116,7 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
+# TODO: Move user stuff to a separate directory
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
     if current_user.is_authenticated:
@@ -124,7 +131,7 @@ def reset_password_request():
     return render_template('reset_password_request.html',
                            title='Reset Password', form=form)
 
-
+# TODO: Move user stuff to a separate directory
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
     if current_user.is_authenticated:
