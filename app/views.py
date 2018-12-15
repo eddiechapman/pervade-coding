@@ -5,7 +5,7 @@ from app import app, db
 from datetime import datetime
 from app.forms import LoginForm, RegistrationForm, CodingForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.email import send_password_reset_email
-from app.models import User, Award
+from app.models import Award, User, Title, Abstract, Project
 
 
 @app.before_request
@@ -14,6 +14,7 @@ def session_management():
     session.permanent = True
     if 'skipped_awards' not in session:
         session['skipped_awards'] = []
+
 
 @app.route('/')
 @app.route('/index')
@@ -52,23 +53,30 @@ def code_award(award_id):
     """Display award data and coding form. Process form submission."""
     award = Award.query.get(award_id)
     form = CodingForm()
+    # TODO: probably can't use validate_on_submit anymore...
     if form.validate_on_submit():
-        award.title_pervasive_data = form.title_pervasive_data.data
-        award.title_data_science = form.title_data_science.data
-        award.title_big_data = form.title_big_data.data
-        award.title_case_study = form.title_case_study.data
-        award.title_data_synonyms = form.title_data_synonyms.data
-        award.title_not_relevant = form.title_not_relevant.data
-        award.abstract_pervasive_data = form.abstract_pervasive_data.data
-        award.abstract_data_science = form.abstract_data_science.data
-        award.abstract_big_data = form.abstract_big_data.data
-        award.abstract_case_study = form.abstract_case_study.data
-        award.abstract_data_synonyms = form.abstract_data_synonyms.data
-        award.abstract_not_relevant = form.abstract_not_relevant.data
-        award.timestamp = datetime.utcnow()
-        award.user = current_user
+        Title(
+                project         = None,
+                user            = current_user,
+                timestamp       = datetime.utcnow(),
+                pervasive_data  = form.title_pervasive_data.data,
+                data_sci        = form.title_data_science.data,
+                big_data        = form.title_big_data.data,
+                case_study      = form.title_case_study.data,
+                data_synonyms   = form.title_data_synonyms.data
+                )
+        Abstract(
+                project         = None,
+                user            = current_user,
+                timestamp       = datetime.utcnow(),
+                pervasive_data  = form.abstract_pervasive_data.data,
+                data_sci        = form.abstract_data_science.data,
+                big_data        = form.abstract_big_data.data,
+                case_study      = form.abstract_case_study.data,
+                data_synonyms   = form.abstract_data_synonyms.data
+                )
         db.session.commit()
-        flash('Coding data submitted for ' + award.title)
+        flash('Coding data submitted.')
         return redirect(url_for('get_award'))
     return render_template('coding.html', award=award, form=form)
 
