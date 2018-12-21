@@ -6,8 +6,6 @@ from app.models import User, Code
 from config import Config
 
 
-
-
 class UserModelCase(unittest.TestCase):
     def setUp(self):
         self.app = create_app(TestConfig)
@@ -21,7 +19,12 @@ class UserModelCase(unittest.TestCase):
         self.app_context.pop()
 
     def test_password_hashing(self):
-        pass
+        user1 = User(username='Eddie', email='test@test.com')
+        user1.set_password('my password')
+        self.assertTrue(user1.username == 'Eddie')
+        self.assertFalse(user1.check_password('not my password'))
+        self.assertTrue(user1.check_password('my password'))
+
 
     def test_coding(self):
         pass
