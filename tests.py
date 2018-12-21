@@ -19,15 +19,38 @@ class UserModelCase(unittest.TestCase):
         self.app_context.pop()
 
     def test_password_hashing(self):
-        user1 = User(username='Eddie', email='test@test.com')
-        user1.set_password('my password')
-        self.assertTrue(user1.username == 'Eddie')
-        self.assertFalse(user1.check_password('not my password'))
-        self.assertTrue(user1.check_password('my password'))
+        user = User(username='Eddie', email='test@test.com')
+        user.set_password('my password')
+        self.assertTrue(user.username == 'Eddie')
+        self.assertFalse(user.check_password('not my password'))
+        self.assertTrue(user.check_password('my password'))
 
 
     def test_coding(self):
-        pass
+        award1 = Award(
+            award_id=1,
+            pi_name='test',
+            contact='test',
+            pi_email='test',
+            organization='test',
+            program='test',
+            title='test',
+            abstract='test',
+        )
+        award2 = Award(
+            award_id=2,
+            pi_name='test',
+            contact='test',
+            pi_email='test',
+            organization='test',
+            program='test',
+            title='test',
+            abstract='test'
+        )
+        user1 = User(username='Eddie', email='test@test.com')
+        user2 = User(username='Freddy', email='test@test.com')
+        #TODO: Update coding.html to show both subforms
+        #TODO: Figure out how to test the forms
 
     def test_skip_award(self):
         pass
