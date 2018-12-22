@@ -27,6 +27,7 @@ class Config(object):
 class TestConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite://'
+    PERVADE_MEMBER = ['test@test.com']
 
 
 class DevelopmentConfig(Config):

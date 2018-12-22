@@ -11,7 +11,7 @@ class User(UserMixin, db.Model):
 
     Attributes:
         id (str): A column of ID numbers.
-        name: A column of user names.
+        username: A column of user names.
         email: A column of user emails.
         password_hash: A column of hashed user passwords.
         codes: A relationship linking the user to the codes they submit.

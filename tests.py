@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import unittest
 from app import create_app, db
 from config import TestConfig
-from app.models import User, Code
+from app.models import User, Code, Award
 from config import Config
 
 
