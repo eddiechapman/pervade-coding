@@ -1,4 +1,4 @@
-from time import time
+from datetime import datetime
 import jwt
 from app import db, login
 from flask import session, current_app
@@ -104,14 +104,10 @@ class Award(db.Model):
         Returns:
             (boolean): True if award is available, false if not.
         """
-        if len(self.codes) >= 2:
+        if len(self.codes) >= 4:
             return False
         elif user.id in [code.user_id for code in self.codes]:
             return False
-        elif self.id in session['skipped_awards']:
-            return False
-        else:
-            return True
 
 
 class Code(db.Model):
@@ -121,7 +117,7 @@ class Code(db.Model):
     """
     __tablename__  = 'code'
     id = db.Column(db.Integer, primary_key=True)
-    time = db.Column(db.DateTime)
+    time = db.Column(db.DateTime, default=datetime.utcnow)
     award_id = db.Column(db.Integer, db.ForeignKey('award.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     code_type = db.Column(db.String(45))

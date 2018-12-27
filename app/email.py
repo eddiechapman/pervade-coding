@@ -16,7 +16,7 @@ def send_email(subject, sender, recipients, text_body, html_body):
     Args:
         subject (str): Text for the email's subject line.
         sender (str): The email account in the email's sender line.
-        recipients (str): The email accounts that will receive the email.
+        recipients (list: str): The email accounts that will receive the email.
         text_body (str): What will the email say in the body?
         html_body (str): The HTML template for formatting the email body.
     """
