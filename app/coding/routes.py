@@ -7,12 +7,6 @@ from app.models import Award, Code
 from app.coding import bp
 
 
-@bp.before_request
-def session_management():
-    """Initialize Flask session storage to remember skipped awards."""
-    session.permanent = True
-    if 'skipped_awards' not in session:
-        session['skipped_awards'] = []
 
 
 @bp.route('/')
@@ -31,25 +25,14 @@ def get_award():
     Returns:
          Redirect to 404 error page if no awards are found.
     """
-    award = Award.query.first_or_404()
-    while not award.available_for_coding(current_user):
-        award = Award.query.first_or_404()
-    return redirect(url_for('coding.code_award', award_id=award.id))
-
-
-@bp.route('/skip_award/<int:award_id>')
-@login_required
-def skip_award(award_id):
-    """Add current award ID to list of skipped awards.
     
-    Args:
-        award_id (int): The ID of the current award that should be skipped.
-    
-    Returns:
-        Redirect to get_award after skipping current award.
-    """
-    session['skipped_awards'].append(award_id)
-    return redirect(url_for('coding.get_award'))
+    awards = Award.query.all()
+    for award in awards:
+        if not award.codes:
+            return redirect(url_for('coding.code_award', award_id=int(award.id)))
+        elif len(award.codes) < 3\
+            & current_user.id not in [code.user for code in award.codes]:
+            return redirect(url_for('coding.code_award', award_id=int(award.id)))
 
 
 @bp.route('/code_award/<int:award_id>', methods=['GET', 'POST'])
@@ -65,15 +48,33 @@ def code_award(award_id):
             get_award on form submit.
     """
     award = Award.query.get(award_id)
+    abstract = award.abstract
+    abstract_paras = abstract.split('\\n')
     form = CodingForm()
     if form.validate_on_submit():
-        title = Code(code_type='title', time=datetime.utcnow())
-        abstract = Code(code_type='abstract', time=datetime.utcnow())
-        form.title.populate_obj(title)
-        form.abstract.populate_obj(abstract)
-        award.codes.extend([title, abstract])
-        current_user.codes.extend([title, abstract])
+        title = Code(
+            code_type='title',
+            pervasive_data=form.pervasive_data_ti.data,
+            data_science=form.data_science_ti.data,
+            big_data=form.big_data_ti.data,
+            case_study=form.case_study_ti.data,
+            data_synonyms=form.data_synonyms_ti.data
+        )
+        title.award = award
+        title.user = current_user
+        
+        abstract = Code(
+            code_type='abstract',
+            pervasive_data=form.pervasive_data_abs.data,
+            data_science=form.data_science_abs.data,
+            big_data=form.big_data_abs.data,
+            case_study=form.case_study_abs.data,
+            data_synonyms=form.data_synonyms_abs.data
+        )
+        abstract.award = award
+        abstract.user = current_user
+
         db.session.commit()
         flash('Coding data submitted.')
         return redirect(url_for('coding.get_award'))
-    return render_template('coding/coding.html', award=award, form=form)
+    return render_template('coding.html', award=award, form=form, abstract_paras=abstract_paras)

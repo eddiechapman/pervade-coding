@@ -81,11 +81,11 @@ class RegistrationForm(FlaskForm):
 
 class ResetPasswordRequestForm(FlaskForm):
     """A form for requesting an email to reset a password.
-    
+
     Attributes:
         email: A form for entering an email to receive a password reset link.
         submit: A button to submit the form data.
-        
+
     Raises:
         ValidationError: When the form is submitted without an email value
         ValidationError: When the email value does not conform to an email format.
@@ -96,12 +96,12 @@ class ResetPasswordRequestForm(FlaskForm):
 
 class ResetPasswordForm(FlaskForm):
     """A form for resetting a password once the reset email has been received.
-    
+
     Attributes:
         password: A field for entering a user's new password.
         password2: A field for re-entering a user's new password.
         submit: A button to submit the form data.
-        
+
     Raises:
         ValidationError: When either fields are left blank.
         ValidationError: When password and password2 do not match.

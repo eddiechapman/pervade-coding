@@ -1,91 +1,46 @@
 <form action="" method="post" role="form">
     {{ form.csrf }}
 
-    <div class="container">
-        <div class="row">
-            <h4>Title coding:</h4>
-        </div>
-    </div>
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<h4>Title coding:</h4>-->
+        <!--</div>-->
+    <!--</div>-->
 
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="title_pervasive_data" name="title_pervasive_data">
-                    <label class="form-check-label" for="title_pervasive_data">Pervasive data</label>
+                    <input class="form-check-input" type="checkbox" id="pervasive_data" name="pervasive_data">
+                    <label class="form-check-label" for="pervasive_data">Pervasive data</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="title_big_data" name="title_big_data">
-                    <label class="form-check-label" for="title_big_data">Big data</label>
+                    <input class="form-check-input" type="checkbox" id="big_data" name="big_data">
+                    <label class="form-check-label" for="big_data">Big data</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="title_data_science" name="title_data_science">
-                    <label class="form-check-label" for="title_data_science">Data science</label>
+                    <input class="form-check-input" type="checkbox" id="data_science" name="data_science">
+                    <label class="form-check-label" for="data_science">Data science</label>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Data synonyms (separate with semicolon)</span>
+                        <span class="input-group-text">Data synonyms (separate with comma)</span>
                     </div>
-                    <textarea class="form-control" id="title_data_synonyms" name="title_data_synonyms"></textarea>
+                    <textarea class="form-control" id="data_synonyms" name="data_synonyms"></textarea>
                 </div>
             </div>
              <div class="col-sm-5">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="title_case_study" name="title_case_study" placeholder="">
-                    <label class="form-check-label" for="title_case_study">Flag for PRIM&R case study</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="title_not_relevant" name="title_not_relevant" placeholder="">
-                    <label class="form-check-label" for="title_not_relevant">Not applicable</label>
+                    <input class="form-check-input" type="checkbox" id="case_study" name="case_study" placeholder="">
+                    <label class="form-check-label" for="case_study">Flag for PRIM&R case study</label>
                 </div>
             </div>
         </div>
     </div>
 
-    <br>
-    <div class="container">
-        <div class="row">
-            <h4>Abstract coding:</h4>
-        </div>
-    </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="abstract_pervasive_data" name="abstract_pervasive_data" placeholder="">
-                    <label class="form-check-label" for="abstract_pervasive_data">Pervasive data</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="abstract_big_data" name="abstract_big_data" placeholder="">
-                    <label class="form-check-label" for="abstract_big_data">Big data</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="abstract_data_science" name="abstract_data_science" placeholder="">
-                    <label class="form-check-label" for="abstract_data_science">Data science</label>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Data synonyms (separate with semicolon)</span>
-                    </div>
-                    <textarea class="form-control" id="abstract_data_synonyms" name="abstract_data_synonyms"></textarea>
-                </div>
-            </div>
-        <div class="col-sm-5">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="abstract_case_study" name="abstract_case_study" placeholder="">
-                <label class="form-check-label" for="abstract_case_study">Flag for PRIM&R case study</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="abstract_not_relevant" name="abstract_not_relevant" placeholder="">
-                <label class="form-check-label" for="abstract_not_relevant">Not applicable</label>
-            </div>
-        </div>
-    </div>
     <br>
     <div class="container">
         <div class="row">
