@@ -27,6 +27,7 @@ FIELDNAMES = (
 if __name__ == "__main__":
     t = time()
 
+    Base = declarative_base()
     # Create the database
     #basedir = os.path.abspath(os.path.dirname(__file__))
     #engine = create_engine('sqlite:///' + os.path.join(basedir, 'app.db'))
@@ -35,7 +36,7 @@ if __name__ == "__main__":
 
     Session = sessionmaker(bind=engine)
     session = Session()
-    Base = declarative_base()
+    
     Base.metadata.create_all(bind=engine)
 
     try:
