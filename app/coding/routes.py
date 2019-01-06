@@ -30,7 +30,7 @@ def get_award():
     for award in awards:
         if not award.codes:
             return redirect(url_for('coding.code_award', award_id=int(award.id)))
-        elif len(award.codes) < 3\
+        elif len(award.codes) < 2\
             & current_user.id not in [code.user for code in award.codes]:
             return redirect(url_for('coding.code_award', award_id=int(award.id)))
 
