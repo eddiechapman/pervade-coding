@@ -52,28 +52,15 @@ def code_award(award_id):
     abstract_paras = abstract.split('\\n')
     form = CodingForm()
     if form.validate_on_submit():
-        title = Code(
-            code_type='title',
-            pervasive_data=form.pervasive_data_ti.data,
-            data_science=form.data_science_ti.data,
-            big_data=form.big_data_ti.data,
-            case_study=form.case_study_ti.data,
-            data_synonyms=form.data_synonyms_ti.data
+        code = Code(
+            pervasive_data=form.pervasive_data.data,
+            data_science=form.data_science.data,
+            big_data=form.big_data.data,
+            data_synonyms=form.data_synonyms.data,
+            comments=form.comments.data
         )
-        title.award = award
-        title.user = current_user
-        
-        abstract = Code(
-            code_type='abstract',
-            pervasive_data=form.pervasive_data_abs.data,
-            data_science=form.data_science_abs.data,
-            big_data=form.big_data_abs.data,
-            case_study=form.case_study_abs.data,
-            data_synonyms=form.data_synonyms_abs.data
-        )
-        abstract.award = award
-        abstract.user = current_user
-
+        code.award = award
+        code.user = current_user
         db.session.commit()
         flash('Coding data submitted.')
         return redirect(url_for('coding.get_award'))
