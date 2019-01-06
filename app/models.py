@@ -1,4 +1,5 @@
 from datetime import datetime
+from time import time
 import jwt
 from app import db, login
 from flask import session, current_app
@@ -120,12 +121,11 @@ class Code(db.Model):
     time = db.Column(db.DateTime, default=datetime.utcnow)
     award_id = db.Column(db.Integer, db.ForeignKey('award.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    code_type = db.Column(db.String(45))
     pervasive_data = db.Column(db.Boolean)
     data_science = db.Column(db.Boolean)
     big_data = db.Column(db.Boolean)
-    case_study = db.Column(db.Boolean)
     data_synonyms = db.Column(db.Text)
+    comments = db.Column(db.Text)
     award = db.relationship('Award', back_populates='codes')
     user = db.relationship('User', back_populates='codes')
 
