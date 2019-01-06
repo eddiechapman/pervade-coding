@@ -1,11 +1,6 @@
 <form action="" method="post" role="form">
     {{ form.csrf }}
 
-    <!--<div class="container">-->
-        <!--<div class="row">-->
-            <!--<h4>Title coding:</h4>-->
-        <!--</div>-->
-    <!--</div>-->
 
     <div class="container">
         <div class="row">
@@ -31,10 +26,12 @@
                     <textarea class="form-control" id="data_synonyms" name="data_synonyms"></textarea>
                 </div>
             </div>
-             <div class="col-sm-5">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="case_study" name="case_study" placeholder="">
-                    <label class="form-check-label" for="case_study">Flag for PRIM&R case study</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Comments</span>
+                    </div>
+                    <textarea class="form-control" id="comments" name="comments"></textarea>
                 </div>
             </div>
         </div>
