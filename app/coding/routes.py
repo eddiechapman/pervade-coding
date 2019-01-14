@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask import render_template, flash, redirect, url_for, session, current_app
 from flask_login import current_user, login_required
+from sqlalchemy import func
 from app import db
 from app.coding.forms import CodingForm
 from app.models import Award, Code
@@ -25,14 +26,14 @@ def get_award():
     Returns:
          Redirect to 404 error page if no awards are found.
     """
-    
     awards = Award.query.all()
     for award in awards:
         if not award.codes:
             return redirect(url_for('coding.code_award', award_id=int(award.id)))
-        elif len(award.codes) < 2\
-            & current_user.id not in [code.user for code in award.codes]:
-            return redirect(url_for('coding.code_award', award_id=int(award.id)))
+        elif len(award.codes) == 1:
+            for code in award.codes:
+                if code.user_id != current_user.id:
+                    return redirect(url_for('coding.code_award', award_id=int(award.id)))
 
 
 @bp.route('/code_award/<int:award_id>', methods=['GET', 'POST'])
