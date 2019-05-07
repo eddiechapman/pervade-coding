@@ -29,9 +29,9 @@ if __name__ == "__main__":
 
     Base = declarative_base()
     # Create the database
-    #basedir = os.path.abspath(os.path.dirname(__file__))
-    #engine = create_engine('sqlite:///' + os.path.join(basedir, 'app.db'))
-    engine = create_engine('postgres://mkfaygifhvukdz:4753f32b2ac2e2b7cf5ee67e4d871291b00eb06b03cd6027036ec0ae04902886@ec2-107-21-98-165.compute-1.amazonaws.com:5432/d1hvrpqqju1diu')
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    engine = create_engine('sqlite:///' + os.path.join(basedir, 'app.db'))
+    # engine = create_engine('postgres://mkfaygifhvukdz:4753f32b2ac2e2b7cf5ee67e4d871291b00eb06b03cd6027036ec0ae04902886@ec2-107-21-98-165.compute-1.amazonaws.com:5432/d1hvrpqqju1diu')
 
 
     Session = sessionmaker(bind=engine)

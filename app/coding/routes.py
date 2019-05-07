@@ -9,12 +9,13 @@ from app.coding import bp
 
 
 
-
 @bp.route('/')
 @bp.route('/index')
 @login_required
 def index():
-    """Main landing page."""
+    """
+    Main landing page.
+    """
     return render_template('index.html')
 
 

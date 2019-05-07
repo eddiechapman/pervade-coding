@@ -109,7 +109,7 @@ class Award(db.Model):
             (boolean): True if award is available, false if not.
 
         """
-        if len(self.codes) >= 4:
+        if len(self.codes) > 1:
             return False
         elif user.id in [code.user_id for code in self.codes]:
             return False
