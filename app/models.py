@@ -16,6 +16,7 @@ class User(UserMixin, db.Model):
         email: A column of user emails.
         password_hash: A column of hashed user passwords.
         codes: A relationship linking the user to the codes they submit.
+
     """
     __tablename__ = 'user'
     id  = db.Column(db.Integer, primary_key=True)
@@ -28,32 +29,31 @@ class User(UserMixin, db.Model):
         return f'<User {self.username}>'
 
     def set_password(self, password):
-        """Store a hashed version of the password in the user table."""
+        """
+        Store a hashed version of the password in the user table.
+        """
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
-        """Return true if password matches hash, false otherwise."""
+        """
+        Return true if password matches hash, false otherwise.
+        """
         return check_password_hash(self.password_hash, password)
 
     def get_reset_password_token(self, expires_in=600):
-        """Create a unique token for resetting a password"""
-        return jwt.encode(
-            {
-                'reset_password': self.id,
-                'exp': time() + expires_in
-            },
-            current_app.config['SECRET_KEY'],
-            algorithm='HS256'
-        ).decode('utf-8')
+        """
+        Create a unique token for resetting a password
+        """
+        return jwt.encode({'reset_password': self.id, 'exp': time() + expires_in},
+                current_app.config['SECRET_KEY'],
+                algorithm='HS256' ).decode('utf-8')
 
     @staticmethod
     def verify_reset_password_token(token):
         try:
             id = jwt.decode(
-                token,
-                current_app.config['SECRET_KEY'],
-                algorithms=['HS256']
-            )['reset_password']
+                    token, current_app.config['SECRET_KEY'], algorithms=['HS256']
+                    )['reset_password']
         except:
             print('error')
             return
@@ -71,12 +71,15 @@ def load_user(id):
 
     Returns:
         (object): The user's account object.
+
     """
     return User.query.get(int(id))
 
 
 class Award(db.Model):
-    """Represents a research grant from the National Science Foundation."""
+    """
+    Represents a research grant from the National Science Foundation.
+    """
     __tablename__ = 'award'
     id = db.Column(db.Integer, primary_key=True)
     award_id = db.Column(db.Integer, unique=True)
@@ -96,14 +99,15 @@ class Award(db.Model):
     def available_for_coding(self, user):
         """Indicate if an award can be coded by a given user.
 
-        Awards must be coded twice by separate users.
-        It also makes sure that the award has not been skipped.
+        Awards must be coded twice by separate users. It also makes
+        sure that the award has not been skipped.
 
         Args:
             user (Object): Account representing the user.
 
         Returns:
             (boolean): True if award is available, false if not.
+
         """
         if len(self.codes) >= 4:
             return False
@@ -112,9 +116,9 @@ class Award(db.Model):
 
 
 class Code(db.Model):
-    """Represents the coding of a single NSF award.
-
-    Applies to either the title or abstract.
+    """
+    Represents the coding of a single NSF award. Applies to either the
+    title or abstract.
     """
     __tablename__  = 'code'
     id = db.Column(db.Integer, primary_key=True)
