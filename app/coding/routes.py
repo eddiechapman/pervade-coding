@@ -15,7 +15,7 @@ from app.coding import bp
 @bp.route('/')
 @bp.route('/index')
 @login_required
-def index(codes_goal=None, codes_complete=None):
+def index():
     """
     Main landing page. Fetch the remaining number of awards to be coded.
     """
