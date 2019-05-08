@@ -3,10 +3,13 @@
 
 {% block app_content %}
     <h3>Hi, {{ current_user.username }}!</h3>
+    <br>
     <h4><a href="{{ url_for('coding.get_award') }}">Code award data</a></h4>
+    <br>
     <h4><a href="{{ url_for('coding.export') }}">Download coding data</a></h4>
-    <p><em>A CSV file will appear in your browser's downloads folder.
-    You may open it in Microsoft Excel or a similar program.</em></p>
+    <p><em>A CSV file will appear in your browser's downloads folder.</em></p>
+    <p><em>You may open it in Microsoft Excel or a similar program.</em></p>
+    <br>
     {% if completed and remaining and total_awards and goal %}
         <h4>Coding progress</h4>
         <ul>
