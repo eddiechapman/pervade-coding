@@ -28,6 +28,7 @@ class TestConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite://'
     PERVADE_MEMBER = ['test1@test.com', 'test2@test.com']
+    WTF_CSRF_ENABLED = False
 
 
 class DevelopmentConfig(Config):

@@ -114,6 +114,8 @@ class Award(db.Model):
         elif user.id in [code.user_id for code in self.codes]:
             return False
 
+        return True
+
 
 class Code(db.Model):
     """
