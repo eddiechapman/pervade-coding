@@ -1,12 +1,15 @@
-from datetime import datetime
-from flask import render_template, flash, redirect, url_for, session, current_app
+import csv
+import datetime
+import io
+
+from flask import (render_template, flash, redirect, url_for,
+                   make_response)
 from flask_login import current_user, login_required
-from sqlalchemy import func
+
 from app import db
 from app.coding.forms import CodingForm
 from app.models import Award, Code
 from app.coding import bp
-
 
 
 @bp.route('/')
@@ -72,4 +75,36 @@ def code_award(award_id):
         db.session.commit()
         flash('Coding data submitted.')
         return redirect(url_for('coding.get_award'))
-    return render_template('coding.html', award=award, form=form, abstract_paras=abstract_paras)
+    return render_template('coding.html', award=award,
+                            form=form, abstract_paras=abstract_paras)
+
+
+@bp.route('/export')
+@login_required
+def export():
+    """
+    Download coding data in CSV form.
+    """
+    data = io.StringIO()
+    writer = csv.writer(data)
+    writer.writerow(('code_id', 'award_id', 'title', 'abstract',
+                     'pervasive_data', 'data_science', 'big_data',
+                     'data_synonyms', 'comments', 'user_id',
+                     'timestamp'))
+
+    for code in Code.query.all():
+        writer.writerow((code.id, code.award.award_id,
+                         code.award.title, code.award.abstract,
+                         code.pervasive_data, code.data_science,
+                         code.big_data, code.data_synonyms,
+                         code.comments, code.user_id, code.time))
+
+    timestamp = datetime.datetime.today().strftime('%Y-%m-%d')
+    filename = f'pervade_coding_export_{timestamp}.csv'
+
+    response = make_response(data.getvalue())
+    response.headers["Content-Disposition"] = f"attachment; filename={filename}"
+    response.headers["Content-type"] = "text/csv"
+    return response
+
+
