@@ -20,16 +20,19 @@ def index():
     """
     Main landing page. Fetch the remaining number of awards to be coded.
     """
-    total_awards = Award.query.all()
+    awards = Award.query.all()
     remaining = 0
-    for award in total_awards:
+    for award in awards:
         if len(award.codes) == 0:
             remaining += 2
         elif len(award.codes) == 1:
             remaining += 1
-    return render_template('index.html',
-                            codes_complete=remaining,
-                            codes_goal=len(total_awards))
+    goal = len(awards) * 2
+    completed = goal - remaining
+
+    return render_template(
+            'index.html', goal=goal, completed=completed, remaining=remaining
+    )
 
 
 @bp.route('/get_award')
