@@ -4,4 +4,11 @@
 {% block app_content %}
     <h3>Hi, {{ current_user.username }}!</h3>
     <h3><a href="{{ url_for('coding.get_award') }}">Click here to code award data</a></h3>
+    {% if codes_goal and codes_complete %}
+        <h4>Coding progress</h4>
+        <ul>
+            <li>Total codes needed: <b>{{ codes_goal }}</b> (2x per award)</li>
+            <li>Codes submitted: <b>{{ codes_complete }}</b></li>
+        </ul>
+    {% endif %}
 {% endblock %}

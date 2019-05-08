@@ -12,11 +12,17 @@ from app.coding import bp
 @bp.route('/')
 @bp.route('/index')
 @login_required
-def index():
+def index(codes_goal=None, codes_complete=None):
     """
-    Main landing page.
+    Main landing page. Fetch the remaining number of awards to be coded.
     """
-    return render_template('index.html')
+    coded_once = Award.query.filter_by(len(Award.codes) == 1).count()
+    coded_never = Award.query.filter_by(len(Award.codes) == 0).count()
+    codes_goal = Award.query.all().count() * 2
+    codes_complete = coded_once + (coded_never * 2)
+    return render_template('index.html',
+                            codes_complete=codes_complete,
+                            codes_goal=codes_goal)
 
 
 @bp.route('/get_award')
