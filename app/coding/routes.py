@@ -5,6 +5,7 @@ import io
 from flask import (render_template, flash, redirect, url_for,
                    make_response)
 from flask_login import current_user, login_required
+from sqlalchemy import func
 
 from app import db
 from app.coding.forms import CodingForm
@@ -19,13 +20,16 @@ def index():
     """
     Main landing page. Fetch the remaining number of awards to be coded.
     """
-    coded_once = Award.query.filter_by(Award.codes.any().count() == 1).count()
-    coded_never = Award.query.filter_by(Award.codes.any().count() == 0).count()
-    codes_goal = Award.query.all().count() * 2
-    codes_complete = coded_once + (coded_never * 2)
+    total = Award.query.all().count() * 2
+    remaining = 0
+    for award in Award.query.all():
+        if len(award.codes) == 0:
+            remaining += 2
+        elif len(award.codes) == 1:
+            remaining += 1
     return render_template('index.html',
-                            codes_complete=codes_complete,
-                            codes_goal=codes_goal)
+                            codes_complete=remaining,
+                            codes_goal=total)
 
 
 @bp.route('/get_award')
