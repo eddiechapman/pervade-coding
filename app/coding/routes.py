@@ -19,8 +19,8 @@ def index():
     """
     Main landing page. Fetch the remaining number of awards to be coded.
     """
-    coded_once = Award.query.filter_by(len(Award.codes) == 1).count()
-    coded_never = Award.query.filter_by(len(Award.codes) == 0).count()
+    coded_once = Award.query.filter_by(Award.codes.any().count() == 1).count()
+    coded_never = Award.query.filter_by(Award.codes.any().count() == 0).count()
     codes_goal = Award.query.all().count() * 2
     codes_complete = coded_once + (coded_never * 2)
     return render_template('index.html',
