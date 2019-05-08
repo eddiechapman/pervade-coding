@@ -3,19 +3,18 @@
 
 {% block app_content %}
     <h3>Hi, {{ current_user.username }}!</h3>
-    {% if goal and completed and remaining %}
-    <h4>Coding progress</h4>
-    <p><i>Each award must be coded twice by separate users.</i></p>
-    <ul>
-        <li>Goal: <b>{{ goal }}</b></li>
-        <li>Current total: <b>{{ completed }}</b></li>
-        <li>Remaining: <b>{{ remaining }}</b></li>
-    </ul>
-    {% endif %}
-    <br>
     <h4><a href="{{ url_for('coding.get_award') }}">Code award data</a></h4>
-    <br>
     <h4><a href="{{ url_for('coding.export') }}">Download coding data</a></h4>
     <p><em>A CSV file will appear in your browser's downloads folder.
-        You may open it in Microsoft Excel or a similar program.</em></p>
+    You may open it in Microsoft Excel or a similar program.</em></p>
+    {% if completed and remaining and total_awards and goal %}
+        <h4>Coding progress</h4>
+        <ul>
+            <li>There are <b>{{ total_awards }}</b> awards in this dataset.</li>
+            <li>Each award must be coded by two separate users for a total of <b>{{ goal }}</b> award codes.</li>
+            <li><b>{{ completed }}</b> award codes have been submitted.</li>
+            <li><b>{{ remaining }}</b> award codes remain.</li>
+        </ul>
+    {% endif %}
+
 {% endblock %}

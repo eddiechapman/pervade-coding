@@ -27,11 +27,16 @@ def index():
             remaining += 2
         elif len(award.codes) == 1:
             remaining += 1
+    total_awards = len(awards)
     goal = len(awards) * 2
     completed = goal - remaining
 
     return render_template(
-            'index.html', goal=goal, completed=completed, remaining=remaining
+            'index.html',
+            completed=completed,
+            remaining=remaining,
+            total_awards=total_awards,
+            goal=goal
     )
 
 
