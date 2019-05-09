@@ -44,19 +44,23 @@ class User(UserMixin, db.Model):
         """
         Create a unique token for resetting a password
         """
-        return jwt.encode({'reset_password': self.id, 'exp': time() + expires_in},
-                current_app.config['SECRET_KEY'],
-                algorithm='HS256' ).decode('utf-8')
+        return jwt.encode(
+            {'reset_password': self.id,
+             'exp': time() + expires_in},
+            current_app.config['SECRET_KEY'],
+            algorithm='HS256',
+        ).decode('utf-8')
 
     @staticmethod
     def verify_reset_password_token(token):
         try:
-            id = jwt.decode(
-                    token, current_app.config['SECRET_KEY'], algorithms=['HS256']
-                    )['reset_password']
+            id = jwt.decode(token,
+                            current_app.config['SECRET_KEY'],
+                            algorithms=['HS256'])['reset_password']
         except:
             print('error')
             return
+
         return User.query.get(id)
 
 
@@ -71,7 +75,6 @@ def load_user(id):
 
     Returns:
         (object): The user's account object.
-
     """
     return User.query.get(int(id))
 
@@ -107,10 +110,10 @@ class Award(db.Model):
 
         Returns:
             (boolean): True if award is available, false if not.
-
         """
         if len(self.codes) > 1:
             return False
+
         elif user.id in [code.user_id for code in self.codes]:
             return False
 
