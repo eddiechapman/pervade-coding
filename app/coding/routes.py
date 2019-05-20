@@ -1,6 +1,7 @@
 import csv
 import datetime
 import io
+from random import randint
 
 from flask import render_template, flash, redirect, url_for, make_response
 from flask_login import current_user, login_required
@@ -44,20 +45,22 @@ def index():
 @login_required
 def get_award():
     """Retrieve a single award that has not been coded or skipped.
+
+    Uses a random index number to avoid assigning the same award to
+    multiple simultaneous users.
     
     Returns:
          Redirect to 404 error page if no awards are found.
     """
-    for award in Award.query.all():
-        if not award.codes:
-            return redirect(url_for('coding.code_award',
+    awards = Award.query.all()
+    for _ in range(len(awards)):
+        award = awards[randint(0, len(awards))]
+        if award.available_for_coding(current_user):
+            return redirect(url_for(endpoint='coding.code_award',
                                     award_id=int(award.id)))
 
-        elif len(award.codes) == 1:
-            for code in award.codes:
-                if code.user_id != current_user.id:
-                    return redirect(url_for('coding.code_award',
-                                            award_id=int(award.id)))
+    flash('We\'re all out of awards for you to code!')
+    return redirect(url_for('coding.index'))
 
 
 @bp.route('/code_award/<int:award_id>', methods=['GET', 'POST'])
